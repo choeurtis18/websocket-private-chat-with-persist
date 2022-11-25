@@ -3,7 +3,7 @@ version: '3.8'
 services:
     symfony:
         build: app
-        container_name: symfony_docker
+        container_name: symfony_docker_
         ports:
             - "8245:80"
         volumes:
@@ -13,21 +13,9 @@ services:
         networks:
             - dev
 
-    websocket:
-        image: php:8.1.2-cli
-        container_name: websocket_docker
-        env_file:
-            - './websocket/.env'
-        volumes:
-            - ./websocket:/var/www/html
-        ports:
-            - "9090:9090"
-        command: php /var/www/html/src/wamp-server.php
-
-
     maildev:
         image: maildev/maildev
-        container_name: maildev_docker
+        container_name: maildev_docker_
         command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
         ports:
             - "8081:80"
@@ -37,7 +25,7 @@ services:
 
     db:
         image: mariadb
-        container_name: mariadb_docker
+        container_name: mariadb_docker_
         restart: always
         volumes:
             - db-data:/var/lib/mysql
@@ -48,7 +36,7 @@ services:
 
     phpmyadmin:
         image: phpmyadmin
-        container_name: phpmyadmin_docker
+        container_name: phpmyadmin_docker_
         restart: always
         depends_on:
             - db
